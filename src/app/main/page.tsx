@@ -82,7 +82,7 @@ export default function GoogleDriveClone() {
                 <Button
                   onClick={() => handleFolderClick(folder.id)}
                   variant="ghost"
-                  className="text-lg text-black hover:text-black"
+                  className="text-lg text-black hover:bg-stone-400 hover:text-white"
                 >
                   {folder.name}
                 </Button>
