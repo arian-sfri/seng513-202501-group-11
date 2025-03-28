@@ -4,9 +4,6 @@ import { env } from "~/env";
 
 export default {
   schema: "./src/server/db/schema.ts",
-  dialect: "sqlite",
-  dbCredentials: {
-    url: env.DATABASE_URL,
-  },
-  tablesFilter: ["cloudsync_*"],
+  dialect: "singlestore",              // this is dialect: "singlestore" in the video but is giving an error
+  tablesFilter: ["cloudsync_*"],      // probably gonna need to change this sometime because of the db name
 } satisfies Config;
