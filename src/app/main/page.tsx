@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { File, mockFiles } from "../../lib/mock-data";
-import { Folder, FileIcon, Upload, ChevronRight, Router } from "lucide-react";
+import { mockFiles } from "../../lib/mock-data";
+import { Folder, FileIcon, Upload, ChevronRight} from "lucide-react";
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
+import Image from 'next/image';
 
 export default function GoogleDriveClone() {
   const router = useRouter();
@@ -49,7 +50,7 @@ export default function GoogleDriveClone() {
 
   return (
     <div className="min-h-screen bg-stone-50 p-8">
-      <img
+      <Image
         src="/images/logo.png"
         alt="Logo Watermark"
         className="absolute bottom-10 left-1/2 transform -translate-x-1/2 w-1/3 opacity-10 z-0"
@@ -57,7 +58,7 @@ export default function GoogleDriveClone() {
       <div className="mx-auto max-w-6xl">
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <img src="/images/logo.png" alt="Logo" className="h-auto w-10" />
+            <Image src="/images/logo.png" alt="Logo" className="h-auto w-10" />
             <h1 className="text-Black text-xl font-medium">Cloudsync</h1>
           </div>
           <Button
@@ -76,7 +77,7 @@ export default function GoogleDriveClone() {
             >
               My Drive
             </Button>
-            {getBreadcrumbs().map((folder, index) => (
+            {getBreadcrumbs().map((folder) => (
               <div key={folder.id} className="flex items-center">
                 <ChevronRight className="mx-2 text-stone-500" size={16} />
                 <Button
@@ -120,7 +121,7 @@ export default function GoogleDriveClone() {
                       </button>
                     ) : (
                       <Link
-                        href={file.url || "#"}
+                        href={file.url ?? "#"}
                         className="flex items-center text-gray-100 hover:text-stone-700"
                       >
                         <FileIcon className="mr-3" size={20} />

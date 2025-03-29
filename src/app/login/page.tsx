@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from 'next/image';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -23,7 +24,7 @@ export default function LoginPage() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-stone-100">
       <Link href="/" passHref>
-        <img
+        <Image
           src="/images/logo.png"
           alt="Logo"
           className="absolute left-6 top-6 h-auto w-16 cursor-pointer transition hover:opacity-60"
@@ -56,7 +57,7 @@ export default function LoginPage() {
           onClick={() => router.push("/signup")}
           className="mt-4 w-full rounded-md bg-stone-400 py-3 font-semibold text-white transition hover:bg-stone-500"
         >
-          Don't have an account? Sign Up
+          Don&apos;t have an account? Sign Up
         </button>
       </div>
     </main>
