@@ -50,7 +50,7 @@ export default function GoogleDriveClone() {
 
   return (
     <div className="min-h-screen bg-stone-50 p-8">
-      <Image
+      <img
         src="/images/logo.png"
         alt="Logo Watermark"
         className="absolute bottom-10 left-1/2 transform -translate-x-1/2 w-1/3 opacity-10 z-0"
@@ -58,7 +58,7 @@ export default function GoogleDriveClone() {
       <div className="mx-auto max-w-6xl">
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <Image src="/images/logo.png" alt="Logo" className="h-auto w-10" />
+            <img src="/images/logo.png" alt="Logo" className="h-auto w-10" />
             <h1 className="text-Black text-xl font-medium">Cloudsync</h1>
           </div>
           <Button
