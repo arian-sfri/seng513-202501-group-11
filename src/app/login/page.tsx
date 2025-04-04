@@ -24,11 +24,10 @@ export default function LoginPage() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-stone-100">
       <Link href="/" passHref>
-        <Image
+        <img
           src="/images/logo.png"
           alt="Logo"
-          className="absolute left-6 top-6 h-auto w-16 cursor-pointer transition hover:opacity-60"
-        />
+          className="absolute left-6 top-6 h-auto w-16 cursor-pointer transition hover:opacity-60"/>
       </Link>
       <div className="w-96 rounded-md bg-stone-200 p-8 shadow-lg">
         <h2 className="mb-4 text-center text-2xl font-bold">Login</h2>
