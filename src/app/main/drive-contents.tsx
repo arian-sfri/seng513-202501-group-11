@@ -11,11 +11,9 @@ import Link from "next/link";
 export default function DriveContents(props: {
   files: (typeof files.$inferSelect)[];
   folders: (typeof folders.$inferSelect)[];
+  parents: (typeof folders.$inferSelect)[];
 }) {
   const router = useRouter();
-  
-
-  const breadcrumbs: unknown[] =[];
 
   const handleUpload = () => {
     alert("Upload functionality would be implemented here");
@@ -56,7 +54,7 @@ export default function DriveContents(props: {
             >
               My Drive
             </Link>
-            {breadcrumbs.map((folder) => (
+            {props.parents.map((folder, index) => (
               <div key={folder.id} className="flex items-center">
                 <ChevronRight className="mx-2 text-stone-500" size={16} />
                 <Link
