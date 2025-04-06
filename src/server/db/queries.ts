@@ -11,7 +11,7 @@ export const QUERIES = {
             .where(eq(foldersSchema.parent, folderId));
     },
     getFiles: function (folderId: number){
-        const filesPromise = db
+        return db
             .select()
             .from(filesSchema)
             .where(eq(filesSchema.parent, folderId));
