@@ -1,30 +1,21 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import {Upload, ChevronRight} from "lucide-react";
-import { Button } from "~/components/ui/button";
-import Image from 'next/image';
+import {ChevronRight} from "lucide-react";
 import { FileRow, FolderRow } from "./file-row";
 import type { files_table, folders_table } from "~/server/db/schema"
 import Link from "next/link";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import { UploadButton } from "~/components/uploadthing";
+import { useRouter } from "next/navigation";
+
 
 export default function DriveContents(props: {
   files: (typeof files_table.$inferSelect)[];
   folders: (typeof folders_table.$inferSelect)[];
   parents: (typeof folders_table.$inferSelect)[];
 }) {
-  const router = useRouter();
 
-  const handleUpload = () => {
-    alert("Upload functionality would be implemented here");
-  };
-
-  const handleLogout = () => {
-    const confirmLogout = window.confirm("Are you sure you want to log out?");
-    if (confirmLogout) {
-      router.push("/");
-    }
-  };
+  const navigate = useRouter();
 
   return (
     <div className="min-h-screen bg-stone-50 p-8">
@@ -39,12 +30,14 @@ export default function DriveContents(props: {
             <img src="/images/logo.png" alt="Logo" className="h-auto w-10" />
             <h1 className="text-Black text-xl font-medium">Cloudsync</h1>
           </div>
-          <Button
-            onClick={handleLogout}
-            className="bg-red-500 text-white hover:bg-red-700"
-          >
-            Logout
-          </Button>
+          <header className="flex justify-end items-center p-4 gap-4 h-16">
+          <SignedOut>
+              <SignInButton />
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+            </header>
         </div>
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center">
@@ -66,13 +59,7 @@ export default function DriveContents(props: {
               </div>
             ))}
           </div>
-          <Button
-            onClick={handleUpload}
-            className="bg-stone-400 text-white hover:bg-stone-700"
-          >
-            <Upload className="mr-2" size={20} />
-            Upload
-          </Button>
+          <UploadButton endpoint="imageUploader" onClientUploadComplete={()=> navigate.refresh()}/>
         </div>
         <div className="rounded-lg bg-stone-400 shadow-xl">
           <div className="border-b border-stone-50 px-6 py-4">
