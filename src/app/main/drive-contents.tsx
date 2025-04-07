@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { FileRow, FolderRow } from "./file-row";
 import type { files_table, folders_table } from "~/server/db/schema"
 import Link from "next/link";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 
 export default function DriveContents(props: {
   files: (typeof files_table.$inferSelect)[];
@@ -39,12 +40,14 @@ export default function DriveContents(props: {
             <img src="/images/logo.png" alt="Logo" className="h-auto w-10" />
             <h1 className="text-Black text-xl font-medium">Cloudsync</h1>
           </div>
-          <Button
-            onClick={handleLogout}
-            className="bg-red-500 text-white hover:bg-red-700"
-          >
-            Logout
-          </Button>
+          <header className="flex justify-end items-center p-4 gap-4 h-16">
+          <SignedOut>
+              <SignInButton />
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+            </header>
         </div>
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center">
