@@ -7,7 +7,7 @@ import { eq } from "drizzle-orm";
 
 export default async function Sandbox(){
     const user = await auth();
-    // console.log("AUTH RESULT:", user);    // this is for debugging, to see if the session ID was established.
+
     if (!user.userId) {
         throw new Error("User not found");
     }
@@ -16,9 +16,6 @@ export default async function Sandbox(){
         .select()
         .from(folders_table)
         .where(eq(folders_table.ownerId, user.userId));
-
-        // console.log(folders) // will print the created folders to terminal
-
     return (
         <div>
             <form action={async () => {

@@ -7,7 +7,7 @@ export const createTable = singlestoreTableCreator(
 );
 
 export const files_table = createTable(
-  "files_table", 
+  "files_table",
   {
     id: bigint("id",{mode: "number", unsigned: true}).primaryKey().autoincrement(),
     ownerId: text("owner_id").notNull(),
