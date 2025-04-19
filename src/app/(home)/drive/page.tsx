@@ -37,5 +37,5 @@ export default async function DrivePage () {
                 </form>
     }
 
-    return redirect(`/f/${rootFolder.id}`);
+    return redirect(`/main/f/${rootFolder.id}`);
 }
