@@ -8,6 +8,7 @@ import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { UploadButton } from "~/components/uploadthing";
 import { useRouter } from "next/navigation";
 
+
 export default function DriveContents(props: {
   files: (typeof files_table.$inferSelect)[];
   folders: (typeof folders_table.$inferSelect)[];
@@ -43,7 +44,7 @@ export default function DriveContents(props: {
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center">
             <Link
-              href="/main/f/1"
+              href="/f/1"
               className="mr-2 text-lg text-black hover:bg-stone-400 hover:text-white"
             >
               My Drive
@@ -52,7 +53,7 @@ export default function DriveContents(props: {
               <div key={folder.id} className="flex items-center">
                 <ChevronRight className="mx-2 text-stone-500" size={16} />
                 <Link
-                  href={`/main/f/${folder.id}`}
+                  href={`/f/${folder.id}`}
                   className="text-lg text-black hover:bg-stone-400 hover:text-white"
                 >
                   {folder.name}

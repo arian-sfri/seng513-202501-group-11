@@ -4,6 +4,7 @@ import { Button } from "~/components/ui/button";
 import { deleteFile } from "~/server/actions";
 import type { folders_table, files_table } from "~/server/db/schema";
 
+
 export function FileRow(props: {file: (typeof files_table.$inferSelect)}){
     const {file} = props;
     return(
@@ -47,7 +48,7 @@ export function FolderRow(props:{
                 <div className="grid grid-cols-12 items-center gap-4">
                   <div className="col-span-6 flex items-center">
                       <Link
-                        href={`/main/f/${folder.id}`}
+                        href={`/f/${folder.id}`}
                         className="flex items-center text-gray-100 hover:text-stone-700"
                       >
                         <FolderIcon className="mr-3" size={20} />

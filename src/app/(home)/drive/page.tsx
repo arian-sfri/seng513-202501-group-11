@@ -23,7 +23,7 @@ export default async function DrivePage () {
 
 
             const rootFolderId = await MUTATIONS.onboardUser(session.userId);
-            return redirect(`/main/f/${rootFolderId}`);
+            return redirect(`/f/${rootFolderId}`);
         }}
         >
             <Button
@@ -37,5 +37,5 @@ export default async function DrivePage () {
                 </form>
     }
 
-    return redirect(`/main/f/${rootFolder.id}`);
+    return redirect(`/f/${rootFolder.id}`);
 }
