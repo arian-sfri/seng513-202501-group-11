@@ -7,6 +7,9 @@ import {ClerkProvider} from '@clerk/nextjs'
 export const metadata: Metadata = {
   title: "CloudSync",
   description: "File Manager",
+  icons: {
+    icon: "/images/Favicon.png", 
+  },
 };
 
 export default function RootLayout({
