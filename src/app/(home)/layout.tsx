@@ -3,11 +3,11 @@ import React from "react";
 export default function LandingPage(props: {children:React.ReactNode}) {
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-stone-50 to-stone-500 text-white">
+    <main className="flex min-h-screen h-full flex-col items-center justify-center bg-stone-100">
       <img
         src="/images/logo.png"
         alt="Logo Watermark"
-        className="absolute z-0 w-2/3 opacity-10 pointer-events-none"
+        className="absolute z-0 w-2/3 opacity-5 pointer-events-none"
       />
       {props.children}
     </main>

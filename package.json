@@ -20,7 +20,8 @@
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,mdx}\" --cache"
   },
   "dependencies": {
-    "@clerk/nextjs": "^6.10.3",
+    "@clerk/elements": "^0.23.16",
+    "@clerk/nextjs": "^6.16.0",
     "@libsql/client": "^0.9.0",
     "@radix-ui/react-dialog": "^1.1.10",
     "@radix-ui/react-label": "^2.1.4",
