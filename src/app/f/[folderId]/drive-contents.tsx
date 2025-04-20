@@ -1,23 +1,42 @@
 "use client";
 
-import {ChevronRight} from "lucide-react";
+import { ChevronRight, FolderPlusIcon } from "lucide-react";
 import { FileRow, FolderRow } from "./file-row";
 import type { files_table, folders_table } from "~/server/db/schema"
 import Link from "next/link";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { UploadButton } from "~/components/uploadthing";
 import { useRouter } from "next/navigation";
-
+import { useState } from "react";
+import { Button } from "~/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "~/components/ui/dialog";
+import { Input } from "~/components/ui/input";
+import { Label } from "~/components/ui/label";
+import { createFolder } from "~/server/actions"; // You'll need to create this action
 
 export default function DriveContents(props: {
   files: (typeof files_table.$inferSelect)[];
   folders: (typeof folders_table.$inferSelect)[];
   parents: (typeof folders_table.$inferSelect)[];
   currentFolderId: number;
-
 }) {
-
   const navigate = useRouter();
+  const [isCreateFolderOpen, setIsCreateFolderOpen] = useState(false);
+  const [folderName, setFolderName] = useState("");
+  
+  const handleCreateFolder = async () => {
+    if (!folderName.trim()) return;
+    
+    await createFolder({
+      name: folderName,
+      parentId: props.currentFolderId,
+      userId: "" // This will be populated in the server action
+    });
+    
+    setFolderName("");
+    setIsCreateFolderOpen(false);
+    navigate.refresh();
+  };
 
   return (
     <div className="min-h-screen bg-stone-50 p-8">
@@ -33,13 +52,13 @@ export default function DriveContents(props: {
             <h1 className="text-Black text-xl font-medium">Cloudsync</h1>
           </div>
           <header className="flex justify-end items-center p-4 gap-4 h-16">
-          <SignedOut>
+            <SignedOut>
               <SignInButton />
             </SignedOut>
             <SignedIn>
               <UserButton />
             </SignedIn>
-            </header>
+          </header>
         </div>
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center">
@@ -58,9 +77,22 @@ export default function DriveContents(props: {
               </div>
             ))}
           </div>
-          <UploadButton endpoint="driveUploader" onClientUploadComplete={()=> navigate.refresh()}
-          input={{folderId: props.currentFolderId,}}
-          />
+          <div className="flex gap-2">
+            <Button 
+              onClick={() => setIsCreateFolderOpen(true)}
+              variant="outline"
+              className="flex items-center gap-2"
+              size="lg"
+            >
+              <FolderPlusIcon size={16} />
+              New Folder
+            </Button>
+            <UploadButton 
+              endpoint="driveUploader" 
+              onClientUploadComplete={() => navigate.refresh()}
+              input={{ folderId: props.currentFolderId }}
+            />
+          </div>
         </div>
         <div className="rounded-lg bg-stone-400 shadow-xl">
           <div className="border-b border-stone-50 px-6 py-4">
@@ -72,7 +104,7 @@ export default function DriveContents(props: {
             </div>
           </div>
           <ul>
-          {props.folders.map((folder) => (
+            {props.folders.map((folder) => (
               <FolderRow key={folder.id} folder={folder} />
             ))}
             {props.files.map((file) => (
@@ -81,6 +113,33 @@ export default function DriveContents(props: {
           </ul>
         </div>
       </div>
+
+      {/* Create Folder Dialog */}
+      <Dialog open={isCreateFolderOpen} onOpenChange={setIsCreateFolderOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Create New Folder</DialogTitle>
+          </DialogHeader>
+          <div className="py-4">
+            <Label htmlFor="folderName">Folder Name</Label>
+            <Input
+              id="folderName"
+              value={folderName}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFolderName(e.target.value)}
+              placeholder="Enter folder name"
+              className="mt-2"
+            />
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setIsCreateFolderOpen(false)}>
+              Cancel
+            </Button>
+            <Button onClick={handleCreateFolder}>
+              Create
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
