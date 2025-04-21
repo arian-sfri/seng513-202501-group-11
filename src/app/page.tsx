@@ -1,11 +1,34 @@
-import { SignInButton } from "@clerk/nextjs";
-import { auth } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
-import { Button } from "~/components/ui/button";
+"use client";
+
+import { useSignIn, useAuth } from "@clerk/nextjs";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function LandingPage() {
+  const { isSignedIn } = useAuth();
+  const { signIn } = useSignIn();
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isSignedIn) {
+      router.push("/drive");
+    }
+  }, [isSignedIn, router]);
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await signIn.authenticateWithRedirect({
+        strategy: "oauth_google",
+        redirectUrl: "/drive",
+      });
+    } catch (err: any) {
+      setError(err.errors?.[0]?.message || "Google sign-in failed.");
+    }
+  };
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-stone-50 to-stone-500 text-white">
+    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-stone-50 to-stone-500 text-white">
       <img
         src="/images/logo.png"
         alt="Logo Watermark"
@@ -17,16 +40,19 @@ export default function LandingPage() {
         </h1>
         <p className="mb-6 text-lg">Your personal cloud storage solution</p>
         <div className="mb-6 flex space-x-8">
-            <SignInButton forceRedirectUrl={"/drive"}>
-              <Button
-                type="submit"
-                className="rounded-md bg-stone-50 px-8 py-3 text-lg font-semibold text-stone-700 transition hover:bg-stone-500 hover:text-white"
-                size="lg"
-              >
-                Get Started
-              </Button>
-            </SignInButton>
+          <button
+            onClick={handleGoogleSignIn}
+            className="mt-2 flex w-full items-center justify-center space-x-2 rounded-md bg-stone-200 px-4 py-2 font-semibold text-stone-600 transition hover:bg-stone-500 hover:text-stone-200"
+          >
+            <img
+              src="/images/GoogleLogo.png"
+              alt="Google Logo"
+              className="h-6 w-6"
+            />
+            <span>Sign in with Google</span>
+          </button>
         </div>
+        {error && <p className="text-red-300 mt-4">{error}</p>}
       </div>
     </main>
   );
