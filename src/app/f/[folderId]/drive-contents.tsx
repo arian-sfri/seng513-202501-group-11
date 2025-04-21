@@ -104,7 +104,7 @@ export default function DriveContents(props: {
             <div className="grid grid-cols-12 gap-4 text-sm font-medium text-stone-300">
               <div className="col-span-6">Name</div>
               <div className="col-span-2">Type</div>
-              {/* <div className="col-span-3">Size</div> */}
+              <div className="col-span-3">Size</div>
               <div className="col-span-1"></div>
             </div>
           </div>
@@ -121,7 +121,7 @@ export default function DriveContents(props: {
 
       {/* Create Folder Dialog */}
       <Dialog open={isCreateFolderOpen} onOpenChange={setIsCreateFolderOpen}>
-        <DialogContent>
+        <DialogContent  className="bg-stone-50 text-black rounded-xl shadow-xl sm:max-w-md w-[90%]">
           <DialogHeader>
             <DialogTitle>Create New Folder</DialogTitle>
           </DialogHeader>
@@ -140,11 +140,14 @@ export default function DriveContents(props: {
           <DialogFooter>
             <Button
               variant="outline"
+              className="text-black bg-stone-200 hover:bg-red-600 hover:text-white sm:mt-0 mt-2"
               onClick={() => setIsCreateFolderOpen(false)}
             >
               Cancel
             </Button>
-            <Button onClick={handleCreateFolder}>Create</Button>
+            <Button 
+              className="bg-stone-500 text-white hover:bg-stone-700"
+              onClick={handleCreateFolder}>Create</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
