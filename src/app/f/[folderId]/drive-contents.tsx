@@ -49,7 +49,7 @@ export default function DriveContents(props: {
       <img
         src="/images/logo.png"
         alt="Logo Watermark"
-        className="absolute bottom-10 left-1/2 z-0 w-1/3 -translate-x-1/2 transform opacity-10"
+        className="absolute bottom-20 sm:bottom-10 left-1/2 z-0 w-1/3 -translate-x-1/2 transform opacity-10"
       />
       <div className="mx-auto max-w-6xl">
         <div className="mb-4 flex items-center justify-between">
@@ -66,7 +66,7 @@ export default function DriveContents(props: {
             </SignedIn>
           </header>
         </div>
-        <div className="mb-4 flex flex-col-reverse items-start justify-start sm:flex-row sm:items-center sm:justify-between">
+        <div className="mb-4 flex flex-col-reverse items-start items-center justify-start sm:flex-row sm:items-center sm:justify-between">
           <div className="w-full overflow-x-auto pb-2">
             <div className="flex min-w-max whitespace-nowrap">
               <span className="mr-2 text-lg text-black">My Drive</span>
@@ -104,7 +104,7 @@ export default function DriveContents(props: {
             <div className="grid grid-cols-12 gap-4 text-sm font-medium text-stone-300">
               <div className="col-span-6">Name</div>
               <div className="col-span-2">Type</div>
-              <div className="col-span-3">Size</div>
+              {/* <div className="col-span-3">Size</div> */}
               <div className="col-span-1"></div>
             </div>
           </div>
