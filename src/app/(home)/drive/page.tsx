@@ -8,7 +8,7 @@ export default async function DrivePage () {
     const session = await auth();
 
     if(!session.userId){
-        return redirect("/sign-in");
+        return redirect("/");
     }
 
     const rootFolder = await QUERIES.getRootFolderForUser(session.userId);
@@ -18,7 +18,7 @@ export default async function DrivePage () {
             const session = await auth();
 
             if(!session.userId){
-                return redirect("/sign-in");
+                return redirect("/");
             }
 
 
