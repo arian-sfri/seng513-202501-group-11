@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 export default function LandingPage() {
   const { isSignedIn } = useAuth();
-  const { signIn } = useSignIn();
+  const { signIn, isLoaded } = useSignIn()
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
@@ -17,6 +17,7 @@ export default function LandingPage() {
   }, [isSignedIn, router]);
 
   const handleGoogleSignIn = async () => {
+    if (!isLoaded || !signIn) return;
     try {
       await signIn.authenticateWithRedirect({
         strategy: "oauth_google",
