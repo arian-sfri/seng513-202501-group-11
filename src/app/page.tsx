@@ -27,8 +27,7 @@ export default function LandingPage() {
       });
     } catch (err) {
       const errorMessage =
-        (err as { errors?: { message?: string }[] }).errors?.[0]?.message ||
-        "Google sign-in failed.";
+      (err as { errors?: { message?: string }[] }).errors?.[0]?.message ?? "Google sign-in failed.";
       setError(errorMessage);
     }
   };
