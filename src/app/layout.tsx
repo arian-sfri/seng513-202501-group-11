@@ -18,6 +18,18 @@ export default function RootLayout({
   return (
     <ClerkProvider>
     <html lang="en" className={`${GeistSans.variable}`}>
+      <head>
+      <link
+            rel="icon"
+            href="/images/Logo.png"
+            media="(prefers-color-scheme: light)"
+          />
+          <link
+            rel="icon"
+            href="/images/Favicon.png"
+            media="(prefers-color-scheme: dark)"
+          />
+          </head>
       <body>{children}</body>
     </html>
     </ClerkProvider>
