@@ -34,12 +34,10 @@ export default function LandingPage() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-stone-50 to-stone-500 text-white">
-      <Image
+      <img
         src="/images/logo.png"
         alt="Logo Watermark"
         className="pointer-events-none absolute z-0 items-center opacity-10 sm:w-2/4"
-        width={500}
-        height={500}
       />
       <div className="z-10 flex flex-col items-center">
         <h1 className="mb-6 text-center text-5xl font-bold">
@@ -51,12 +49,10 @@ export default function LandingPage() {
             onClick={handleGoogleSignIn}
             className="mt-2 flex w-full items-center justify-center space-x-2 rounded-md bg-stone-200 px-4 py-2 font-semibold text-stone-600 transition hover:bg-stone-500 hover:text-stone-200"
           >
-            <Image
+            <img
               src="/images/GoogleLogo.png"
               alt="Google Logo"
               className="h-6 w-6"
-              width={24}
-              height={24}
             />
             <span>Sign in with Google</span>
           </button>
