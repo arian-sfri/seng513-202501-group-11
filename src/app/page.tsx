@@ -37,7 +37,7 @@ export default function LandingPage() {
       <img
         src="/images/logo.png"
         alt="Logo Watermark"
-        className="pointer-events-none absolute z-0 items-center opacity-10 sm:w-2/4"
+        className="pointer-events-none absolute z-0 items-center opacity-10 w-3/4 sm:w-2/4"
       />
       <div className="z-10 flex flex-col items-center">
         <h1 className="mb-6 text-center text-5xl font-bold">
