@@ -22,6 +22,7 @@ export default function LandingPage() {
       await signIn.authenticateWithRedirect({
         strategy: "oauth_google",
         redirectUrl: "/drive",
+        redirectUrlComplete: "/drive",
       });
     } catch (err: any) {
       setError(err.errors?.[0]?.message || "Google sign-in failed.");
