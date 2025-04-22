@@ -2,7 +2,7 @@ import "server-only";
 
 import { db } from "~/server/db";
 import { files_table as filesSchema, folders_table as foldersSchema } from "~/server/db/schema";
-import { and, eq, isNull } from "drizzle-orm";
+import { and, eq, isNull, sum } from "drizzle-orm";
 
 export const QUERIES = {
     getFolders: function(folderId: number){
@@ -18,6 +18,31 @@ export const QUERIES = {
             .from(filesSchema)
             .where(eq(filesSchema.parent, folderId))
             .orderBy(filesSchema.id);
+    },
+    getFolderSize: async function (folderId: number): Promise<number> {
+        // Get direct files size
+        const directFilesSize = await db
+            .select({ totalSize: sum(filesSchema.size) })
+            .from(filesSchema)
+            .where(eq(filesSchema.parent, folderId));
+        
+        const directSize = Number(directFilesSize[0]?.totalSize ?? 0);
+
+        // Get all subfolders
+        const subfolders = await db
+            .select()
+            .from(foldersSchema)
+            .where(eq(foldersSchema.parent, folderId));
+
+        // Recursively get size of each subfolder
+        const subfolderSizes: number[] = await Promise.all(
+            subfolders.map(folder => this.getFolderSize(folder.id))
+        );
+
+        // Sum up all sizes
+        const totalSubfolderSize = subfolderSizes.reduce((sum: number, size: number) => sum + size, 0);
+        
+        return directSize + totalSubfolderSize;
     },
     getAllParentsForFolder: async function (folderId: number) {
         const parents = [];

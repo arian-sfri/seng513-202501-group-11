@@ -19,6 +19,22 @@ export const ourFileRouter = {
       maxFileSize: "1GB",
       maxFileCount: 9999,
     },
+    video: {
+      maxFileSize: "1GB",
+      maxFileCount: 9999,
+    },
+    pdf: {
+      maxFileSize: "1GB",
+      maxFileCount: 9999,
+    },
+    text: {
+      maxFileSize: "1GB",
+      maxFileCount: 9999,
+    },
+    blob: {
+      maxFileSize: "1GB",
+      maxFileCount: 9999,
+    }
   })
   .input(
     z.object({
