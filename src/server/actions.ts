@@ -2,11 +2,10 @@
 
 import { and, eq } from "drizzle-orm";
 import { db } from "./db";
-import { files_table, folders_table } from "./db/schema";
+import { files_table, folders_table, folder_permissions, folder_lists } from "./db/schema";
 import { auth } from "@clerk/nextjs/server";
 import { UTApi } from "uploadthing/server";
 import { cookies } from "next/headers";
-
 
 const utApi = new UTApi();
 
@@ -55,10 +54,7 @@ export async function createFolder(input: {
 
   }
 
-
-
-
-  export async function deleteFolder(folderId: number) {
+export async function deleteFolder(folderId: number) {
     const session = await auth();
     if (!session.userId) {
         return { error: "Unauthorized" };
@@ -69,4 +65,61 @@ export async function createFolder(input: {
     c.set("force-refresh", JSON.stringify(Math.random()));
     return { success: true };
 
+}
+
+export async function updatePermissions({
+  folderId,
+  permissions,
+  lists,
+}: {
+  folderId: number;
+  permissions: { userId: string; access: string }[];
+  lists: { userId: string; type: string }[];
+}) {
+  // Remove all and re-insert for simplicity (can optimize later)
+  await db.delete(folder_permissions).where({ folderId });
+  await db.delete(folder_lists).where({ folderId });
+
+  if (permissions.length) {
+    await db.insert(folder_permissions).values(
+      permissions.map((p) => ({
+        folderId,
+        userId: p.userId,
+        access: p.access,
+      }))
+    );
   }
+  if (lists.length) {
+    await db.insert(folder_lists).values(
+      lists.map((l) => ({
+        folderId,
+        userId: l.userId,
+        type: l.type,
+      }))
+    );
+  }
+}
+
+export async function getFolderPermissions(folderId: number) {
+  // Replace with your DB logic
+  // Example:
+  // const permissions = await db.permissions.findMany({ where: { folderId } });
+  // const lists = await db.lists.findMany({ where: { folderId } });
+  // return { permissions, lists };
+
+  // Dummy data for now:
+  return {
+    permissions: [
+      { userId: "user1@example.com", access: "read" },
+      { userId: "user2@example.com", access: "write" },
+    ],
+    lists: [
+      { userId: "user3@example.com", type: "blacklist" },
+      { userId: "user4@example.com", type: "whitelist" },
+    ],
+  };
+}
+
+export async function getFolderLists(folderId: number) {
+  return db.select().from(folder_lists).where({ folderId });
+}

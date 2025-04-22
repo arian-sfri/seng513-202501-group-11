@@ -1,6 +1,7 @@
 // import "server-only";
 
 import {int, text, index, singlestoreTableCreator, bigint, timestamp} from 'drizzle-orm/singlestore-core'
+import { pgTable, text as pgText, integer, primaryKey } from "drizzle-orm/pg-core";
 
 export const createTable = singlestoreTableCreator(
   (name) => `cloudSync_${name}`,
@@ -44,3 +45,19 @@ export const folders_table = createTable(
 )
 
 export type DB_FolderType = typeof folders_table.$inferSelect;
+
+export const folder_permissions = pgTable("folder_permissions", {
+  folderId: integer("folder_id").notNull(),
+  userId: pgText("user_id").notNull(),
+  access: pgText("access").notNull(), // 'read' | 'write' | 'admin'
+}, (table) => ({
+  pk: primaryKey({ columns: [table.folderId, table.userId] }),
+}));
+
+export const folder_lists = pgTable("folder_lists", {
+  folderId: integer("folder_id").notNull(),
+  userId: pgText("user_id").notNull(),
+  type: pgText("type").notNull(), // 'blacklist' | 'whitelist'
+}, (table) => ({
+  pk: primaryKey({ columns: [table.folderId, table.userId, table.type] }),
+}));
