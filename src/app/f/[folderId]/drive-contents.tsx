@@ -83,7 +83,7 @@ export default function DriveContents(props: {
               ))}
             </div>
           </div>
-          <div className="mb-2 flex flex-row justify-between gap-2 sm:mb-0">
+          <div className="mb-2 flex flex-row justify-between gap-0 sm:mb-0">
             <Button
               onClick={() => setIsCreateFolderOpen(true)}
               variant="outline"
@@ -92,11 +92,14 @@ export default function DriveContents(props: {
               <FolderPlusIcon size={16} />
               New Folder
             </Button>
-            <UploadButton
-              endpoint="driveUploader"
-              onClientUploadComplete={() => navigate.refresh()}
-              input={{ folderId: props.currentFolderId }}
-            />
+            <div className="min-w-[200px]">
+              <UploadButton
+                endpoint="driveUploader"
+                onClientUploadComplete={() => navigate.refresh()}
+                input={{ folderId: props.currentFolderId }}
+                className="[&>div]:whitespace-nowrap"
+              />
+            </div>
           </div>
         </div>
         <div className="rounded-lg bg-stone-400 shadow-xl">
